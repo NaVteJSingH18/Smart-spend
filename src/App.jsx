@@ -4,8 +4,12 @@ import TransactionForm from './components/TransactionForm';
 import TransactionList from './components/TransactionList';
 import SummaryCard from './components/SummaryCard';
 import { useEffect } from 'react';
+import SearchBar from "./components/SearchBar";
+import FilterBar from './components/FilterBar';
 const App = () => {
 
+const [search, setSearch] = useState("");
+const [filter, setFilter] = useState("All");
 const [transactions,setTransactions]= useState([]);
 
 const income = transactions.reduce((total,transaction)=>{
@@ -22,6 +26,8 @@ const expense = transactions.reduce((total,transaction)=>{
       return total ;
     },0);
 
+
+
 const balance = 50000  + income - expense;
 
   useEffect(() => {
@@ -31,7 +37,14 @@ const balance = 50000  + income - expense;
     );
   }, [transactions]);
 
-
+       const filteredTransactions = transactions.filter((transaction)=>{
+           
+            const matchesSearch = transaction.title.toLowerCase().includes(search.toLowerCase()) ;
+            const matchesFilter =
+                    filter === "All" || transaction.type === filter;
+                
+            return matchesSearch && matchesFilter;
+ } );
 
       function addTransaction(newTransaction){
         if(newTransaction.title && newTransaction.amount>0){  
@@ -75,14 +88,19 @@ const balance = 50000  + income - expense;
         color="text-red-600"
     />
 
-
+    <SearchBar
+    search={search}
+    setSearch={setSearch}
+    />
        <TransactionForm
            addTransaction={addTransaction}
        />
+       <FilterBar/>
        <TransactionList
-           transactions={transactions}
+           transactions={filteredTransactions}
            deleteTransaction={deleteTransaction}
        /> 
+
        </div>
            </div>
            </div>
