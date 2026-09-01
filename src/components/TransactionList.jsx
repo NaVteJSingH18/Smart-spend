@@ -3,10 +3,11 @@ import TransactionItem from "./TransactionItem";
 const TransactionList = ({
   transactions,
   deleteTransaction,
+  setEditingTransaction,
 }) => {
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-8 grid-cols-3 Form = col-span-1 Transactions = col-span-2">
+    <div className="bg-white rounded-2xl shadow-lg p-8">
 
       <h2 className="text-2xl font-bold mb-6">
         Recent Transactions
@@ -25,11 +26,20 @@ const TransactionList = ({
       ) : (
 
         transactions.map(transaction => (
-          <TransactionItem
+          <div key={transaction.id}>
+            <TransactionItem
             key={transaction.id}
             transaction={transaction}
             deleteTransaction={deleteTransaction}
           />
+          <button
+            onClick={() => setEditingTransaction(transaction)}
+            >
+              ✏ Edit
+          </button>
+          </div>
+          
+
         ))
 
       )}
