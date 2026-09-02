@@ -2,21 +2,24 @@ import React from 'react'
 
 const SearchBar = ({search,setSearch}) => {
   return (
-    <div className='bg-white rounded-2xl shadow-lg p-6 mb-8'>
+    <div className='w-full'>
       <input 
       type="text"
-      placeholder='Search ...'
+      placeholder='Search transactions...'
       value={search}
       onChange={(e)=>{setSearch(e.target.value)}}
       className='
           w-full
           border
-          border-gray-300
-          rounded-lg
+          border-gray-200
+          rounded-xl
           p-3
+          pl-4
+          shadow-sm
           focus:outline-none
           focus:ring-2
-          focus:ring-blue-500'
+          focus:ring-blue-500
+          transition'
        />
     </div>
   );

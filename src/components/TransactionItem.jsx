@@ -1,40 +1,46 @@
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaEdit } from "react-icons/fa";
 
-const TransactionItem = ({ transaction, deleteTransaction }) => {
+const TransactionItem = ({ transaction, deleteTransaction, setEditingTransaction }) => {
   return (
-    <div className="bg-white rounded-xl shadow-md p-5 flex justify-between items-center hover:shadow-lg transition mb-4">
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex justify-between items-center hover:shadow-md hover:border-gray-200 transition-all mb-3 group">
 
-      <div>
+      <div className="flex-1">
         <h3 className="text-lg font-semibold text-slate-800">
           {transaction.title}
         </h3>
 
-        <div className="flex items-center gap-9  mt-1">
-
+        <div className="flex items-center gap-4 mt-1">
           <span
-            className={`text-sm font-medium  px-2 py-1 rounded-full ${
+            className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
               transaction.type === "Income"
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
+                ? "bg-emerald-100 text-emerald-700"
+                : "bg-rose-100 text-rose-700"
             }`}
           >
             {transaction.type}
           </span>
-
-          <span className="text-gray-500">
+          <span className="text-gray-500 font-medium">
             ₹{transaction.amount.toLocaleString()}
           </span>
-
         </div>
       </div>
 
-      <button
-        onClick={() => deleteTransaction(transaction.id)}
-        className="bg-red-500 flex gap-2.5 items-center hover:bg-red-600 text-white px-3 py-1 rounded-lg transition"
-      > 
-      <FaTrash /> Delete
-      </button>
-
+      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <button
+          onClick={() => setEditingTransaction(transaction)}
+          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+          title="Edit"
+        >
+          <FaEdit />
+        </button>
+        <button
+          onClick={() => deleteTransaction(transaction.id)}
+          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          title="Delete"
+        > 
+          <FaTrash />
+        </button>
+      </div>
     </div>
   );
 };

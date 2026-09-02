@@ -15,61 +15,100 @@ const TransactionForm = ({ addTransaction, updateTransaction, editingTransaction
 }, [editingTransaction]);
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-      <h2 className="text-2xl font-bold mb-6">
-        {editingTransaction ? "Edit Transaction" : "Add Transaction"}
-      </h2>
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8 h-fit">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold text-slate-800">
+          {editingTransaction ? "Edit Transaction" : "Add Transaction"}
+        </h2>
+        {editingTransaction && (
+          <button
+            onClick={() => {
+              setEditingTransaction(null);
+              setTitle("");
+              setAmount("");
+              setType("Income");
+            }}
+            className="text-sm text-gray-400 hover:text-gray-600 transition"
+          >
+            Cancel
+          </button>
+        )}
+      </div>
 
-      <div className="space-y-4">
-        <input
-          type="text"
-          placeholder="Transaction Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="
-          w-full
-          border
-          border-gray-300
-          rounded-lg
-          p-3
-          focus:outline-none
-          focus:ring-2
-          focus:ring-blue-500
-        "
-        />
+      <div className="space-y-5">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+          <input
+            type="text"
+            placeholder="e.g. Salary, Groceries"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="
+            w-full
+            border
+            border-gray-200
+            rounded-xl
+            p-3
+            focus:outline-none
+            focus:ring-2
+            focus:ring-blue-500
+            transition
+            bg-gray-50
+            focus:bg-white
+          "
+          />
+        </div>
 
-        <input
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="
-          w-full
-          border
-          border-gray-300
-          rounded-lg
-          p-3
-          focus:outline-none
-          focus:ring-2
-          focus:ring-blue-500
-        "
-        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">₹</span>
+            <input
+              type="number"
+              placeholder="0.00"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="
+              w-full
+              border
+              border-gray-200
+              rounded-xl
+              p-3
+              pl-8
+              focus:outline-none
+              focus:ring-2
+              focus:ring-blue-500
+              transition
+              bg-gray-50
+              focus:bg-white
+            "
+            />
+          </div>
+        </div>
 
-        <select
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          className="
-          w-full
-          border
-          border-gray-300
-          rounded-lg
-          p-3
-          bg-white
-        "
-        >
-          <option>Income</option>
-          <option>Expense</option>
-        </select>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className="
+            w-full
+            border
+            border-gray-200
+            rounded-xl
+            p-3
+            bg-gray-50
+            focus:bg-white
+            focus:outline-none
+            focus:ring-2
+            focus:ring-blue-500
+            transition
+          "
+          >
+            <option>Income</option>
+            <option>Expense</option>
+          </select>
+        </div>
 
         <button
           onClick={() => {
@@ -96,13 +135,18 @@ const TransactionForm = ({ addTransaction, updateTransaction, editingTransaction
           bg-blue-600
           text-white
           py-3
-          rounded-lg
+          rounded-xl
           font-semibold
+          shadow-md
+          shadow-blue-500/30
           hover:bg-blue-700
-          transition
+          hover:shadow-blue-600/40
+          transition-all
+          duration-300
+          active:scale-[0.98]
         "
         >
-          {editingTransaction ? "Update Transaction" : "Add Transaction"}
+          {editingTransaction ? "Save Changes" : "+ Add Transaction"}
         </button>
       </div>
     </div>

@@ -11,7 +11,10 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   const [sortBy, setSortBy] = useState("Newest");
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState(() => {
+    const savedTransactions = localStorage.getItem("transactions");
+    return savedTransactions ? JSON.parse(savedTransactions) : [];
+  });
   const [editingTransaction, setEditingTransaction] = useState(null);
 
   const income = transactions.reduce((total, transaction) => {
@@ -28,7 +31,7 @@ const App = () => {
     return total;
   }, 0);
 
-  const INITIAL_BALANCE = 50000;
+  const INITIAL_BALANCE = 0;
   const balance = INITIAL_BALANCE + income - expense;
 
   useEffect(() => {
@@ -110,11 +113,14 @@ const App = () => {
 
           <SummaryCard title="Expense" amount={expense} color="text-red-600" />
         </div>
-        <SearchBar search={search} setSearch={setSearch} />
-
-        <div className="flex gap-4 mb-6">
-          <FilterBar filter={filter} setFilter={setFilter} />
-          <SortBar sortBy={sortBy} setSortBy={setSortBy} />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-8 flex flex-col md:flex-row gap-4 items-center">
+          <div className="w-full md:flex-1">
+            <SearchBar search={search} setSearch={setSearch} />
+          </div>
+          <div className="flex w-full md:w-auto gap-3">
+            <FilterBar filter={filter} setFilter={setFilter} />
+            <SortBar sortBy={sortBy} setSortBy={setSortBy} />
+          </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">

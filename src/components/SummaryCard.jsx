@@ -4,19 +4,22 @@ const SummaryCard = ({ title, amount, color }) => {
             className="
                 bg-white
                 rounded-2xl
-                shadow-lg
+                shadow-sm
+                border
+                border-gray-100
                 p-6
-                hover:shadow-xl
+                hover:shadow-md
+                hover:-translate-y-1
                 transition
                 duration-300
             "
         >
 
-            <h2 className="text-gray-500 text-sm uppercase tracking-wide">
+            <h2 className="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-2">
                 {title}
             </h2>
 
-            <p className={`text-4xl font-bold mt-4 ${color}`}>
+            <p className={`text-4xl font-bold ${color}`}>
                 ₹{amount.toLocaleString()}
             </p>
 
