@@ -23,7 +23,7 @@ const App = () => {
     }
     return total;
   }, 0);
-
+ 
   const expense = transactions.reduce((total, transaction) => {
     if (transaction.type === "Expense") {
       return total + transaction.amount;
